@@ -15,13 +15,19 @@ return new class extends Migration
     {
         Schema::create('lawyers', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('full_name')->default('');
+            $table->string('profile_photo')->nullable();
             $table->string('email')->unique();
             $table->string('address');
-            $table->integer('cases_won');
+            $table->string('specialization');
+            $table->bigInteger('experience'); // Change the data type to bigInteger
+            $table->string('license')->default('');
+            $table->integer('cases_won')->default(0); // Set a default value
+            $table->integer('password');
+            $table->integer('phone_number');
             $table->timestamps();
         });
+              
     }
 
     /**

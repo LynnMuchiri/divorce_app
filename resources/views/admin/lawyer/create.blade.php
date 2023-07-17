@@ -3,15 +3,12 @@
 @section('contents')
     <h1 class="mb-0">Add Lawyer</h1>
     <hr />
-    <form action="{{ route('lawyer.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.lawyer.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class= "row mb-3">
             <div class="col">
-                <input type="text" name="first_name" class="form-control" placeholder="First Name">
+                <input type="text" name="full_name" class="form-control" placeholder="Full Name">
             </div>
-            <div class="col">
-                <input type="text" name="last_name" class="form-control" placeholder="Last Name">
-        </div>
 </div>
             <div class= "row mb-3">
             <div class="col">
@@ -20,6 +17,15 @@
             <div class="col">
                 <input type="text" name="address" class="form-control" placeholder="Address" required>
             </div>
+            <div class="col">
+                <input type="number" name="specialization" class="form-control" placeholder="Specialization" required>
+         </div>
+         <div class="col">
+                <input type="number" name="experience" class="form-control" placeholder="Experience" required>
+         </div>
+         <div class="col">
+                <input type="number" name="license" class="form-control" placeholder="License" required>
+         </div>
             <div class="col">
                 <input type="number" name="cases_won" class="form-control" placeholder="Cases Won" required>
          </div>

@@ -5,9 +5,9 @@ The Separation Framework is an extensive platform specifically designed to addre
 1. Clone repo through the github desktop
 2. Open the project from where you cloned it
 3. Once within the root structure within your terminal, run the following commands
- ```shell
-        composer install
-```
+    ```shell
+            composer install
+    ```
    ```shell
         composer update
    ```

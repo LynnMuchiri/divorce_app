@@ -5,23 +5,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>Login</title>
-  <!-- MDB icon -->
+  <title>Register</title>
+
   <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
-  <!-- Font Awesome -->
+
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
-  <!-- Google Fonts Roboto -->
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
-  <!-- MDB -->
+
   <link rel="stylesheet" href="{{asset('assets-login/css/bootstrap-login-form.min.css')}}" />
 </head>
 
-<form method="POST" action="{{ route('login') }}" enctype="multipart/form-data">
-        @csrf
   
-
+<form method="POST" action="{{ route('client.store') }}"  enctype="multipart/form-data">
+        @csrf
+        
 <body>
-
   <section class="vh-100" style="background-color:#ffff;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -29,22 +28,24 @@
           <div class="card" style="border-radius: 1rem;">
             <div class="row g-0">
               <div class="col-md-6 col-lg-5 d-none d-md-block">
-                <img
-                  src="/images/logo.jpeg"
-                  alt="login form"
-                  class="img-fluid" style="border-radius: 1rem 0 0 1rem;"
-                />
+              <img src="/images/logo.jpeg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; width: 800px; height: 600px;" />
               </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
-  
 
+  
                     <div class="d-flex align-items-center mb-3 pb-1">
                       <i class="fas fa-cubes fa-2x me-3" style="color: #669869;"></i>
                       <span class="h1 fw-bold mb-0">DecouplIN</span>
                     </div>
   
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Login</h5>
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register Here</h5>
+
+                    <div class="form-outline mb-4">
+                      <input type="name" id="full_name" name="full_name" :value="old('full_name')" class="form-control form-control-lg" required autofocus autocomplete/>
+                      <label class="form-label" for="name" :value="__('Name')" >Full Name</label>
+                      <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    </div>
   
                     <div class="form-outline mb-4">
                       <input type="email" id="email" name="email" :value="old('email')" class="form-control form-control-lg" required autocomplete="username"/>
@@ -58,28 +59,35 @@
                       <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
-                    <div class="block mt-4">
-                    <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                     <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-                    </label>
-        </div>
-  <hr />
-                    <div class="pt-1 mb-4">
-                    @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('register') }}">
-                {{ __('Need an account?') }}
-            </a>
-            <hr>
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a> 
-            @endif
-                      <button class="btn btn-dark btn-lg btn-block">{{__('login')}}</button>
+                    <div class="form-outline mb-4">
+                      <input type="number" id="phone_number" name="phone_number" :value="old('phone_number')"  class="form-control form-control-lg">
+                      <label class="form-label" for="phone_number"  :value="__('Phone_Number')" >Phone Number</label>
+                      <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
                     </div>
 
+
+                    <div class="form-outline mb-4">
+                      <input type="text" id="address" name="address":value="old('address')"  class="form-control form-control-lg">
+                      <label class="form-label" for="address" :value="__('Address')" >Address</label>
+                      <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="file" id="file" name="documents":value="old('documents')"  class="form-control form-control-lg">
+                     
+                      <x-input-error :messages="$errors->get('documents')" class="mt-2" />
+                    </div>
+                 
+
+                    <div class="pt-1 mb-4">
+                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
+                {{ __('Already registered?') }}
+            </a>
+            <button class="btn btn-dark btn-lg btn-block">{{__('Register')}}</button>
+                    </div>
+                    </form>
               
-                  </form>
+
   
                 </div>
               </div>
@@ -89,6 +97,7 @@
       </div>
     </div>
   </section>
+  <!-- End your project here-->
 
   <!-- MDB -->
   <script type="text/javascript" src="{{asset('assets-login/js/mdb.min.js')}}"></script>

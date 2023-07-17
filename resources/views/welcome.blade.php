@@ -27,7 +27,15 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="register">Register</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="registerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Register
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="registerDropdown">
+                                <li><a class="dropdown-item" href="{{ route('client.register') }}">Register as Client</a></li>
+                                <li><a class="dropdown-item" href="{{ route('lawyer.register') }}">Register as Lawyer</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </div>

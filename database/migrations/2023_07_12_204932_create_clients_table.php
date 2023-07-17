@@ -15,15 +15,17 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('full_name')->default('');
             $table->string('email')->unique();
-            $table->string('address');
+            $table->string('password');
             $table->integer('phone_number');
+            $table->string('address');
+            $table->text('documents')->default('');
             $table->timestamps();
 
         });
     }
+
 
     /**
      * Reverse the migrations.

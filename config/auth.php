@@ -40,8 +40,27 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+                'driver' => 'token',
+                'provider' => 'users',
     ],
-
+    'client' => [
+        'driver' => 'session',
+        'provider' => 'clients',
+    ],
+    'client-api' => [
+        'driver' => 'token',
+        'provider' => 'clients',
+    ],
+    'lawyer' => [
+        'driver' => 'session',
+        'provider' => 'lawyers',
+    ],
+    'lawyer-api' => [
+        'driver' => 'token',
+        'provider' => 'lawyers',
+    ],
+],
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -64,12 +83,21 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'clients' => [
+                'driver' => 'eloquent',
+                'model' => App\Models\Client::class,
+         ],
+            'lawyers' => [
+                'driver' => 'eloquent',
+                'model' => App\Models\Lawyer::class,
+
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
+        ],
 
     /*
     |--------------------------------------------------------------------------
@@ -93,8 +121,19 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'clients' => [
+                'provider' => 'clients',
+                'table' => 'password_resets',
+                'expire' => 60,
+                'throttle' => 60,
+            ],
+            'lawyers' => [
+                'provider' => 'lawyers',
+                'table' => 'password_resets',
+                'expire' => 60,
+                'throttle' => 60,
     ],
-
+],
     /*
     |--------------------------------------------------------------------------
     | Password Confirmation Timeout

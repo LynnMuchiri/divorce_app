@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\Lawyer;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class ClientController extends Controller
 {
@@ -14,9 +19,10 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $client = Client::orderBy('created_at', 'DESC')->get();
-        return view('client.index',compact('client'));
+        $lawyers = Lawyer::all(); // Assuming you have a Lawyer model and want to fetch all lawyers
+        return view('/client/client_dashboard', compact('lawyers'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +31,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('client.create');
+        return view();
     }
 
     /**
@@ -34,24 +40,46 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        Client::create($request->all());
-        return redirect()->route('clients')->with('success','Clinet added successfully');
-    }
 
+     // ...
+     
+     public function store(Request $request)
+     {
+         $validatedData = $request->validate([
+             // Add validation rules for other fields
+            //   'documents' => 'nullable|file|mimes:pdf,doc,docx', // Add validation rule for the document
+         ]);
+     
+         $file = $request->file('documents');
+         $filePath = $file->store('uploads');
+
+         // Create the client record
+         Client::create([
+            'full_name'=>$request->full_name,
+             'email'=>$request->email , 
+             'password'=>$request->password, 
+             'phone_number'=>$request->phone_number,
+              'address'=>$request->address,
+               'documents'=>$filePath,
+         ]);
+     
+         return redirect('/client/client_dashboard');
+     }
+     
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $client = Client::findorFail($id);
+  // ClientController.php
 
-        return view('client.show', compact('client'));
-    }
+    public function show($id)
+            {
+                // $lawyers = Lawyer::all(); // Assuming you have a "Lawyer" model and want to retrieve all lawyers
+                // return view('/client/client_dashboard', compact('lawyers'));
+            }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -61,9 +89,7 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $client = Client::findorFail($id);
-
-        return view('client.edit', compact('client'));
+   
     }
 
     /**
@@ -75,11 +101,7 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $client = Client::findorFail($id);
-
-        $client->update($request->all());
-
-        return redirect()->route('clients')->with('success','Client updated successfully');
+   
     }
 
     /**
@@ -90,10 +112,6 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $client = Client::findorFail($id);
 
-        $client->delete();
-
-        return redirect()->route('clients')->with('success','Client deleted successfully');
-    }
+}
 }

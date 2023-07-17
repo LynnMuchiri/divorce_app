@@ -17,7 +17,7 @@
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw">
-                        {{auth ()->user()->name}}
+                        {{auth ()->user()->full_name}}
                     </i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
@@ -46,11 +46,11 @@
                                 {{ __('Dashboard') }}
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link" href="{{route ('lawyers') }}">
+                            <a class="nav-link" href="{{route ('admin.lawyer.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                                 Lawyers
                             </a>
-                            <a class="nav-link" href="{{route ('clients') }}">
+                            <a class="nav-link" href="{{route ('admin.client.store') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Clients
                             </a>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        {{auth ()->user()->name}}
+                        {{auth ()->user()->full_name}}
                     </div>
                 </nav>
             </div>

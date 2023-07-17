@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
+use App\Models\Client;
 use App\Models\Lawyer;
 
 
@@ -16,8 +16,8 @@ class LawyerController extends Controller
      */
     public function index()
     {
-        $lawyer = Lawyer::orderBy('created_at', 'DESC')->get();
-        return view('lawyer.index',compact('lawyer'));
+        $lawyers = Lawyer::select('profile_photo')->get();
+        return view('/client/client_dashboard', compact('lawyers'));
     }
 
     /**
@@ -27,7 +27,7 @@ class LawyerController extends Controller
      */
     public function create()
     {
-        return view('lawyer.create');
+        
     }
 
     /**
@@ -36,11 +36,39 @@ class LawyerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    //     Lawyer::create($request->all());
+    //     return redirect()->route('lawyers')->with('success','Lawyer added successfully');
+    // }
+
     public function store(Request $request)
-    {
-        Lawyer::create($request->all());
-        return redirect()->route('lawyers')->with('success','Lawyer added successfully');
-    }
+{
+    $validatedData = $request->validate([
+        // Add other validation rules here for name, email, password, etc.
+         //'profile_photo' => 'image|mimes:jpeg,png,jpg',
+    ]);
+
+    $file = $request->file('profile_photo');
+    $filePath = $file->store('images');
+
+
+    Lawyer::create([
+    'full_name'=>$request->full_name,
+    'profile_photo'=>$filePath,
+    'email'=>$request->email,
+    'address'=>$request->address,
+    'password'=>$request->password, 
+    'specialization'=>$request->specialization,	
+    'experience'=>$request->experience,
+    'license'=>$request->license,
+    'phone_number'=>$request->phone_number,
+    ]);
+    return redirect('/lawyer/lawyer_dashboard');
+
+    
+}
+
 
     /**
      * Display the specified resource.
@@ -50,9 +78,7 @@ class LawyerController extends Controller
      */
     public function show($id)
     {
-        $lawyer = Lawyer::findorFail($id);
-
-        return view('lawyer.show', compact('lawyer'));
+      
     }
 
     /**
@@ -63,9 +89,7 @@ class LawyerController extends Controller
      */
     public function edit($id)
     {
-        $lawyer = Lawyer::findorFail($id);
-
-        return view('lawyer.edit', compact('lawyer'));
+      
     }
 
     /**
@@ -77,11 +101,7 @@ class LawyerController extends Controller
      */
     public function update(Request $request, $id)
     {
-          $lawyer = Lawyer::findorFail($id);
-
-          $lawyer->update($request->all());
-
-          return redirect()->route('lawyers')->with('success','Lawyer updated successfully');
+         
 
     }
 
@@ -93,13 +113,7 @@ class LawyerController extends Controller
      */
     public function destroy($id)
     {
-        $lawyer = Lawyer::findorFail($id);
-
-        $lawyer->delete();
-
-        return redirect()->route('lawyers')->with('success','Lawyer deleted successfully');
-
-
+    
 
     }
 }
